@@ -49,7 +49,7 @@ beautiful.init(theme_path)
 beautiful.notification_font = "Noto Sans Regular 14"
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "kitty"
 browser = "firefox"
 filemanager = "thunar"
 editor = terminal .. " -e vim"
