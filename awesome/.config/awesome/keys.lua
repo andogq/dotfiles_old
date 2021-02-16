@@ -107,6 +107,53 @@ keys.global = gears.table.join(
     end, {description="take a screenshot of the focused window", group="screenshot"})
 )
 
+-- Bind number keys to tags
+for i = 1, 10 do
+    keys.global = gears.table.join(keys.global,
+        -- View tag
+        awful.key({super_key}, "#" .. (i + 9), function()
+	    local tag = awful.screen.focused().tags[i]
+	    if tag then
+		    tag:view_only()
+	    end
+        end, {description="view tag #" .. i, group="tag"}),
+	
+	-- Move window to tag
+	awful.key({super_key, shift_key}, "#" .. (i + 9), function()
+	    if client.focus then
+                local tag = client.focus.screen.tags[i]
+		if tag then
+		    client.focus:move_to_tag(tag)
+		    tag:view_only()
+	        end
+	    end
+        end, {description="move focused window to tag #" .. i, group="tag"})
+    )
+end
+
+keys.client = gears.table.join(
+    -- Fullscreen window
+    awful.key({super_key}, "f", function(c)
+	    c.fullscreen = not c.fullscreen
+	    c:raise()
+    end, {description="toggle fullscreen", group="client"}),
+
+    -- Close window
+    awful.key({super_key}, "x", function(c)
+	    c:kill()
+    end, {description="close window", group="client"}),
+
+    -- Minimise window
+    awful.key({super_key}, "n", function(c)
+	    c.minimized = true
+    end, {description="minimize window", group="client"}),
+
+    -- Move window to master
+    awful.key({super_key, control_key}, "Return", function(c)
+	    c:swap(awful.client.getmaster())
+    end, {description="move window to master", group="client"})
+)
+
 -- Set all the keys
 root.keys(keys.global)
 
