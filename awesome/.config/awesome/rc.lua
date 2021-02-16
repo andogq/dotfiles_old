@@ -18,8 +18,13 @@ local freedesktop = require("freedesktop")
 -- Custom scripts
 local keys = require("keys")
 
--- Enable VIM help for hotkeys widget when client with matching name is opened:
--- require("awful.hotkeys_popup.keys.vim")
+-- Configuration variables
+terminal = "kitty"
+browser = "firefox"
+filemanager = "thunar"
+editor = terminal .. " -e vim"
+theme = "default"
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -47,22 +52,10 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "default")
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), theme)
 beautiful.init(theme_path)
 
-beautiful.notification_font = "Noto Sans Regular 14"
-
--- This is used later as the default terminal and editor to run.
-terminal = "kitty"
-browser = "firefox"
-filemanager = "thunar"
-editor = terminal .. " -e vim"
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+beautiful.notification_font = theme.font
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -157,13 +150,13 @@ spacer = wibox.widget.textbox(' <span color="' .. blue .. '"> </span>')
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
+                    awful.button({ keys.super_key }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
                                               end
                                           end),
                     awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
+                    awful.button({ keys.super_key }, 3, function(t)
                                               if client.focus then
                                                   client.focus:toggle_tag(t)
                                               end

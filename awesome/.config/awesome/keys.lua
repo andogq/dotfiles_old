@@ -10,6 +10,11 @@ alt_key = "Mod1"
 control_key = "Control"
 shift_key = "Shift"
 
+keys.super_key = super_key
+keys.alt_key = alt_key
+keys.control_key = control_key
+keys.shift_key = shift_key
+
 -- Global keys
 keys.global = gears.table.join(
     -- Show hotkey popup
