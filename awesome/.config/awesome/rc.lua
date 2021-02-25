@@ -15,9 +15,6 @@ local lain = require("lain")
 -- Freedesktop menu
 local freedesktop = require("freedesktop")
 
--- Custom scripts
-local keys = require("keys")
-
 -- Configuration variables
 terminal = "kitty"
 browser = "firefox"
@@ -56,6 +53,10 @@ local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.ge
 beautiful.init(theme_path)
 
 beautiful.notification_font = theme.font
+
+-- Custom scripts
+local keys = require("keys")
+local bars = require("bars")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -228,6 +229,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
+    --[[
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
@@ -251,6 +253,7 @@ awful.screen.connect_for_each_screen(function(s)
                     s.mylayoutbox,
                 },
     }
+    --]]
 end)
 -- }}}
 -- }}}
